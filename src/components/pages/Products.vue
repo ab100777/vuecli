@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"></loading>
     <div class="text-right mt-4">
       <button class="btn btn-primary" @click="openModal(true)">建立新產品</button>
     </div>
@@ -18,23 +19,51 @@
         <tr v-for="(item) in products" :key="item.id">
           <td>{{item.category}}</td>
           <td>{{item.title}}</td>
-          <td class="text-right">{{item.origin_price}}</td>
-          <td class="text-pright">{{item.price}}</td>
+          <td class="text-right">{{item.origin_price | currency}}</td>
+          <td class="text-pright">{{item.price | currency}}</td>
           <td>
             <span v-if="item.is_enable" class="text-success">啟用</span>
             <span v-else>未啟用</span>
           </td>
           <td>
             <button class="btn btn-outline-primary btn-sm" @click="openModal(false,item)">編輯</button>
-            <button
-              class="btn btn-outline-danger btn-sm"
-              data-toggle="modal"
-              data-target="#delProductModal"
-            >刪除</button>
+            <button class="btn btn-outline-danger btn-sm" @click="openDelModal(item)">刪除</button>
           </td>
         </tr>
       </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item" :class="{'disabled':!pagination.has_pre}">
+          <a
+            class="page-link"
+            href="#"
+            aria-label="Previous"
+            @click.prevent="getProducts(pagination.current_page - 1)"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li
+          class="page-item"
+          v-for="page in pagination.total_pages"
+          :key="page"
+          :class="{'active':pagination.current_page===page}"
+        >
+          <a class="page-link" href="#" @click.prevent="getProducts(page)">{{page}}</a>
+        </li>
+        <li class="page-item" :class="{'disabled':!pagination.has_next}">
+          <a
+            class="page-link"
+            href="#"
+            aria-label="Next"
+            @click.prevent="getProducts(pagination.current_page + 1)"
+          >
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
     <!-- Modal -->
     <div
       class="modal fade"
@@ -70,9 +99,15 @@
                 <div class="form-group">
                   <label for="customFile">
                     或 上傳圖片
-                    <i class="fas fa-spinner fa-spin"></i>
+                    <i class="fas fa-spinner fa-spin" v-if="status.fileUploading"></i>
                   </label>
-                  <input type="file" id="customFile" class="form-control" ref="files">
+                  <input
+                    type="file"
+                    id="customFile"
+                    class="form-control"
+                    ref="files"
+                    @change="uploadFile"
+                  >
                 </div>
                 <img
                   img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
@@ -208,7 +243,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-danger" @click="removeProduct(key)">確認刪除</button>
+            <button type="button" class="btn btn-danger" @click="removeProduct(tempProduct.id)">確認刪除</button>
           </div>
         </div>
       </div>
@@ -223,8 +258,13 @@ export default {
   data() {
     return {
       products: [],
+      pagination: {},
       tempProduct: {},
-      isNew: false
+      isNew: false,
+      isLoading: false,
+      status: {
+        fileUploading: false
+      }
     };
   },
   methods: {
@@ -234,9 +274,12 @@ export default {
       }/products`;
       const vm = this;
       console.log(process.env.APIPATH, process.env.CUSTOMPATH);
+      vm.isLoading = true;
       this.$http.get(api).then(response => {
         console.log(response.data);
+        vm.isLoading = false;
         vm.products = response.data.products;
+        vm.pagination = response.data.pagination;
       });
     },
     openModal(isNew, item) {
@@ -249,10 +292,10 @@ export default {
       }
       $("#productModal").modal("show");
     },
-    updateProduct() {
+    updateProduct(page = 1) {
       let api = `${process.env.APIPATH}/api/${
         process.env.CUSTOMPATH
-      }/admin/product`;
+      }/admin/product?page=${page}`;
       let httpMethod = "post";
       const vm = this;
       if (!vm.isNew) {
@@ -274,8 +317,49 @@ export default {
         }
       });
     },
-    removeProduct(key) {
-      this.products.splice(key, 1);
+    openDelModal(item) {
+      this.tempProduct = Object.assign({}, item);
+      $("#delProductModal").modal("show"); 
+    },
+    removeProduct(id) {
+      const api = `${process.env.APIPATH}/api/${
+        process.env.CUSTOMPATH
+      }/admin/product/${id}`;
+      const vm = this;
+      console.log(process.env.APIPATH, process.env.CUSTOMPATH);
+      vm.isLoading = true;
+      this.$http.delete(api).then(response => {
+        console.log(response.data);
+        vm.isLoading = false;
+        $("#delProductModal").modal("hide");
+        vm.getProducts();
+      });
+    },
+    uploadFile() {
+      console.log(this);
+      const uploadFile = this.$refs.files.files[0];
+      const vm = this;
+      const formData = new FormData();
+      formData.append("file-to-upload", uploadFile);
+      const url = `${process.env.APIPATH}/api/${
+        process.env.CUSTOMPATH
+      }/admin/upload`;
+      vm.status.fileUploading = true;
+      this.$http
+        .post(url, formData, {
+          headers: {
+            "Content-type": "multipart/form-data"
+          }
+        })
+        .then(response => {
+          console.log(response.data);
+          vm.status.fileUploading = false;
+          if (response.data.success) {
+            vm.$set(vm.tempProduct, "imageUrl", response.data.imageUrl);
+          } else {
+            this.$bus.$emit("messsage:push", response.data.message, "danger");
+          }
+        });
     }
   },
   created() {
