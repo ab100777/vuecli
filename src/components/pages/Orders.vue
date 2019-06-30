@@ -83,19 +83,49 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <!-- <div class="modal-body">
+          <div class="modal-body">
             <form>
               <div class="form-group">
-                <label for="formGroupExampleInput">優惠券名稱</label>
+                <label for="formGroupExampleInput">訂購者姓名</label>
                 <input
                   type="text"
                   class="form-control"
                   id="formGroupExampleInput"
-                  placeholder="請輸入優惠券名稱"
-                  v-model="tempCoupon.title"
-                >
+                  placeholder="請輸入訂購者姓名"
+                  v-model="tempOrder.user.name"
+                />
               </div>
-              <div class="form-row">
+              <div class="form-group">
+                <label for="formGroupExampleInput">地址</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="formGroupExampleInput"
+                  placeholder="請輸入地址"
+                  v-model="tempOrder.user.address"
+                />
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput">電子信箱</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="formGroupExampleInput"
+                  placeholder="請輸入電子信箱"
+                  v-model="tempOrder.user.email"
+                />
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput">連絡電話</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="formGroupExampleInput"
+                  placeholder="請輸入連絡電話"
+                  v-model="tempOrder.user.tel"
+                />
+              </div>
+              <!-- <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="percent">折扣%數</label>
                   <input
@@ -139,9 +169,9 @@
                   >
                   <label class="form-check-label" for="is_enabled">是否啟用</label>
                 </div>
-              </div>
+              </div>-->
             </form>
-          </div>-->
+          </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" @click="updateOrder">確認</button>
@@ -168,39 +198,86 @@
           </div>
           <div class="modal-body">
             <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">姓名</th>
-                  <th scope="col">{{order.user.name}}</th>
-                  <th scope="col"></th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
               <tbody>
+                <tr>
+                  <th scope="row">姓名</th>
+                  <td scope="col">{{order.user.name}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">地址</th>
+                  <td>{{order.user.address}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">電子信箱</th>
+                  <td>{{order.user.email}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">電話</th>
+                  <td>{{order.user.tel}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
                 <tr>
                   <th scope="row">訂單編號</th>
                   <td>{{order.id}}</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
+                  <th scope="row">購買品項</th>
+                  <td>
+                    <ul>
+                      <li
+                        v-for="(product,key) in order.products"
+                        :key="key"
+                      >{{product.product.title}}</li>
+                    </ul>
+                  </td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
+                  <th scope="row">應付金額</th>
+                  <td>{{order.total}}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">是否付款</th>
+                  <td>
+                    <span v-if="order.is_paid" class="text-success">已付款</span>
+                    <span v-else>未付款</span>
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">訂購日期</th>
+                  <td>{{order.paid_date | time}}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">應付金額</th>
+                  <td>{{order.total}}</td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="updateOrder">確認</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
           </div>
         </div>
       </div>
@@ -214,10 +291,73 @@ import $ from "jquery";
 export default {
   data() {
     return {
-      orders: {},
-      order: {},
+      orders: [
+        {
+          create_at: 154343432,
+          id: "",
+          is_paid: false,
+          message: "",
+          paid_date: 1523539924,
+          payment_method: "",
+          products: [
+            {
+              id: "",
+              product_id: "",
+              qty: "3",
+              product: {
+                title: "",
+                unit: ""
+              }
+            }
+          ],
+          total: 100,
+          user: {
+            address: "",
+            email: "",
+            name: "",
+            tel: ""
+          },
+          num: 1
+        }
+      ],
+      order: {
+        products: [],
+        total: 0,
+        user: {
+          name: "",
+          email: "",
+          tel: "",
+          address: ""
+        }
+      },
       pagination: {},
-      tempOrder: {},
+      tempOrder: {
+        create_at: 154343432,
+        id: "",
+        is_paid: false,
+        message: "",
+        paid_date: 1523539924,
+        payment_method: "",
+        products: [
+          {
+            id: "",
+            product_id: "",
+            qty: "3",
+            product: {
+              title: "",
+              unit: ""
+            }
+          }
+        ],
+        total: 100,
+        user: {
+          address: "",
+          email: "",
+          name: "",
+          tel: ""
+        },
+        num: 1
+      },
       isNew: false,
       isLoading: false
     };
@@ -225,9 +365,7 @@ export default {
   methods: {
     getOrders(page) {
       const vm = this;
-      const url = `${process.env.APIPATH}/api/${
-        process.env.CUSTOMPATH
-      }/admin/orders?page=${page}`;
+      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/orders?page=${page}`;
       vm.isLoading = true;
       this.$http.get(url).then(response => {
         vm.orders = response.data.orders;
@@ -238,9 +376,7 @@ export default {
     },
     getOrder(id) {
       const vm = this;
-      const url = `${process.env.APIPATH}/api/${
-        process.env.CUSTOMPATH
-      }/order/${id}`;
+      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order/${id}`;
       // vm.status.loadingItem = id;
       this.$http.get(url).then(response => {
         vm.order = response.data.order;
@@ -261,15 +397,11 @@ export default {
     },
 
     updateOrder(page = 1) {
-      let api = `${process.env.APIPATH}/api/${
-        process.env.CUSTOMPATH
-      }/admin/Order?page=${page}`;
+      let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/Order?page=${page}`;
       let httpMethod = "post";
       const vm = this;
       if (!vm.isNew) {
-        api = `${process.env.APIPATH}/api/${
-          process.env.CUSTOMPATH
-        }/admin/order/${vm.tempOrder.id}`;
+        api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/order/${vm.tempOrder.id}`;
         httpMethod = "put";
       }
       console.log(process.env.APIPATH, process.env.CUSTOMPATH);
