@@ -20,7 +20,7 @@
           <td>{{item.category}}</td>
           <td>{{item.title}}</td>
           <td class="text-right">{{item.origin_price | currency}}</td>
-          <td class="text-pright">{{item.price | currency}}</td>
+          <td class="text-right">{{item.price | currency}}</td>
           <td>
             <span v-if="item.is_enable" class="text-success">啟用</span>
             <span v-else>未啟用</span>

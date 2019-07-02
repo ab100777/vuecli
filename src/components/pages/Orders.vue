@@ -20,7 +20,7 @@
               <li v-for="(product,key) in item.products" :key="key">{{product.product.title}}</li>
             </ul>
           </td>
-          <td>{{item.total}}</td>
+          <td class="text-right">{{item.total | currency}}</td>
           <td>{{item.paid_date | time}}</td>
           <td>
             <span v-if="item.is_paid" class="text-success">已付款</span>
@@ -28,7 +28,7 @@
           </td>
           <td>
             <button class="btn btn-outline-primary btn-sm" @click="openUpdateModal(false,item)">編輯</button>
-            <button class="btn btn-outline-primary btn-sm" @click="getOrder(item.id)">詳細內容</button>
+            <button class="btn btn-outline-info btn-sm" @click="getOrder(item.id)">詳細內容</button>
           </td>
         </tr>
       </tbody>
@@ -173,7 +173,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancelUpdateOrder">取消</button>
             <button type="button" class="btn btn-primary" @click="updateOrder">確認</button>
           </div>
         </div>
@@ -416,6 +416,9 @@ export default {
           console.log("新增失敗");
         }
       });
+    },
+    cancelUpdateOrder(){
+      this.getOrders();
     }
   },
   created() {

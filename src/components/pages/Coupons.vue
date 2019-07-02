@@ -18,7 +18,7 @@
         <tr v-for="(item) in coupons" :key="item.id">
           <td>{{item.title}}</td>
           <td>{{item.code}}</td>
-          <td>{{item.percent}}</td>
+          <td>{{item.percent}}%</td>
           <td>{{item.due_date}}</td>
           <td>
             <span v-if="item.is_enable" class="text-success">啟用</span>
