@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Login from '@/components/pages/Login';
 import Dashboard from '@/components/Dashboard';
+import Customerboard from '@/components/Customerboard'
 import Products from '@/components/pages/Products'
 import Coupons from '@/components/pages/Coupons'
 import Orders from '@/components/pages/Orders'
@@ -48,8 +49,8 @@ export default new VueRouter({
         },
         {
             path: '/',
-            name: 'dashboard',
-            component: Dashboard,
+            name: 'customerboard',
+            component: Customerboard,
             children: [
                 {
                     path: 'customer_order',

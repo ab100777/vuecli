@@ -97,7 +97,7 @@
                 <div class="form-group col-md-6">
                   <label for="percent">折扣%數</label>
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="percent"
                     placeholder="請輸入折扣%數"

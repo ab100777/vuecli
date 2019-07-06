@@ -84,10 +84,14 @@
           <input
             type="tel"
             class="form-control"
+            name="tel"
             id="usertel"
+            :class="{'is-invalid':errors.has('tel')}"
             v-model="form.user.tel"
+            v-validate="'required'"
             placeholder="請輸入電話"
           />
+          <span class="text-danger" v-if="errors.has('tel')">必須輸入電話</span>
         </div>
 
         <div class="form-group">
@@ -97,10 +101,12 @@
             class="form-control"
             name="address"
             id="useraddress"
+            :class="{'is-invalid':errors.has('address')}"
             v-model="form.user.address"
+            v-validate="'required'"
             placeholder="請輸入地址"
           />
-          <span class="text-danger">地址欄位不得留空</span>
+          <span class="text-danger" v-if="errors.has('address')">請輸入地址</span>
         </div>
 
         <div class="form-group">

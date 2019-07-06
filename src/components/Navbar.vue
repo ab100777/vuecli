@@ -21,15 +21,13 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class href="home.html">
-          <img src="./img/logo-all-dark.svg" alt height="40px" class="navbar-logo" />
-        </a>
+        <img src="./img/logo-all-dark.svg" alt height="40px" class="navbar-logo" />
         <div class="collapse navbar-collapse order-sm-1" id="navbarNav">
           <ul class="navbar-nav ml-auto" style="font-weight: bolder;">
             <li class="nav-item">
               <router-link class="nav-link" to="/customer_order">
                 <span data-feather="file-text"></span>
-                <i class="fas fa-shopping-cart"></i>甜點
+                <i class="fas fa-box-open"></i>甜點
               </router-link>
             </li>
             <li class="nav-item">
@@ -39,7 +37,16 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-secondary" href="login.html">登入</a>
+              <router-link class="nav-link" to="/login">
+                <span data-feather="file-text"></span>
+                登入
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/admin/products">
+                <span data-feather="file-text"></span>
+                後台系統
+              </router-link>
             </li>
           </ul>
         </div>

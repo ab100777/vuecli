@@ -36,27 +36,6 @@
           </div>
         </div>
       </div>
-      <!-- test -->
-      <!-- <div class="col-sm-6 mb-4" v-for="item in products" :key="item.id">
-        <div
-          class="item-img bg-cover img-fluid"
-         :style="{backgroundImage:`url(${item.imageUrl})`}"
-        >
-          <div class="item-tag">本日精選</div>
-          <div class="item-icon text-secondary">
-            <label style="cursor: pointer;">
-              <input type="checkbox" class="item-icon-checkbox" />
-              <i class="far fa-heart fa-2x"></i>
-              <i class="fas fa-heart fa-2x"></i>
-            </label>
-          </div>
-        </div>
-        <div class="d-flex">
-          <div class="item-name text-secondary py-2 px-lg-7 px-sm-4 px-5">{{item.title}}</div>
-          <div class="item-price text-secondary py-2 mx-auto">$450</div>
-        </div>
-        <button class="item-btn btn btn-block btn-primary text-secondary rounded-0 py-3">加入購物車</button>
-      </div> -->
     </div>
     <div class="my-5 row justify-content-center">
       <div class="my-5 row justify-content-center">
@@ -67,8 +46,8 @@
             <th>數量</th>
             <th>單價</th>
           </thead>
-          <tbody>
-            <tr v-for="item in cart.carts" :key="item.id" v-if="cart.carts">
+          <tbody v-if="cart.carts">
+            <tr v-for="item in cart.carts" :key="item.id" >
               <td class="align-middle">
                 <button
                   type="button"
