@@ -1,13 +1,5 @@
 <template>
   <div>
-    <!-- <nav class="navbar navbar-dark fixed-top bg-primary flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link text-white" href="#" @click.prevent="signout">Sign out</a>
-        </li>
-      </ul>
-    </nav>-->
     <nav class="navbar navbar-expand-md navbar-light">
       <div class="container">
         <button
@@ -21,13 +13,15 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <img src="./img/logo-all-dark.svg" alt height="40px" class="navbar-logo" />
+        <router-link class="nav-link" to="/customer_order">
+          <img src="./img/Logo-Steam.png" alt width="150px" class="navbar-logo" />
+        </router-link>
         <div class="collapse navbar-collapse order-sm-1" id="navbarNav">
-          <ul class="navbar-nav ml-auto" style="font-weight: bolder;">
+          <ul class="navbar-nav ml-auto" style="font-weight: bolder;font-size:15px">
             <li class="nav-item">
               <router-link class="nav-link" to="/customer_order">
                 <span data-feather="file-text"></span>
-                <i class="fas fa-box-open"></i>甜點
+                <i class="fas fa-box-open"></i>商城
               </router-link>
             </li>
             <li class="nav-item">

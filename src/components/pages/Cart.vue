@@ -2,15 +2,15 @@
     <div>
             <div class="my-5 row justify-content-center">
       <div class="my-5 row justify-content-center">
-        <table class="table">
-          <thead>
+        <table class="table text-info bg-warning mb-0">
+          <thead >
             <th></th>
             <th>品名</th>
             <th>數量</th>
             <th>單價</th>
           </thead>
-          <tbody>
-            <tr v-for="item in cart.carts" :key="item.id" v-if="cart.carts">
+          <tbody v-for="item in cart.carts" :key="item.id">
+            <tr v-if="cart.carts">
               <td class="align-middle">
                 <button
                   type="button"
@@ -24,7 +24,7 @@
                 {{item.product.title}}
                 <div class="text-success" v-if="item.coupon">已套用優惠券</div>
               </td>
-              <td class="align-middle">{{item.qty}}/{{item.product.unit}}</td>
+              <td class="align-middle">{{item.qty}}套</td>
               <td class="align-middle text-right">{{item.final_total}}</td>
             </tr>
           </tbody>
@@ -39,16 +39,16 @@
             </tr>
           </tfoot>
         </table>
-        <div class="input-group mb-3 input-group-sm">
-          <input type="text" class="form-cintrol" v-model="coupon_code" placeholder="請輸入優惠碼" />
+        <div class="input-group pb-3 input-group-sm bg-warning">
+          <input type="text" class="form-cintrol ml-3" v-model="coupon_code" placeholder="請輸入優惠碼" />
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" @click="addCouponCode">套用優惠碼</button>
+            <button class="btn btn-outline-secondary text-info" type="button" @click="addCouponCode">套用優惠碼</button>
           </div>
         </div>
       </div>
     </div>
     <div class="my-5 row justify-content-center">
-      <form class="col-md-6" @submit.prevent="createOrder">
+      <form class="col-md-6 text-info" @submit.prevent="createOrder">
         <div class="form-group">
           <label for="useremail">Email</label>
           <input
@@ -135,7 +135,7 @@ export default {
   data() {
     return {
       products: [],
-      product: {},
+      // product: {},
       status: {
         loadingItem: ""
       },
@@ -164,32 +164,32 @@ export default {
         vm.isLoading = false;
       });
     },
-    getProduct(id) {
-      const vm = this;
-      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${id}`;
-      vm.status.loadingItem = id;
-      this.$http.get(url).then(response => {
-        vm.product = response.data.product;
-        $("#productModal").modal("show");
-        console.log(response);
-        vm.status.loadingItem = "";
-      });
-    },
-    addToCart(id, qty = 1) {
-      const vm = this;
-      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
-      vm.status.loadingItem = id;
-      const cart = {
-        product_id: id,
-        qty
-      };
-      this.$http.post(url, { data: cart }).then(response => {
-        console.log(response);
-        vm.status.loadingItem = "";
-        vm.getCart();
-        $("#productModal").modal("hide");
-      });
-    },
+    // getProduct(id) {
+    //   const vm = this;
+    //   const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${id}`;
+    //   vm.status.loadingItem = id;
+    //   this.$http.get(url).then(response => {
+    //     vm.product = response.data.product;
+    //     $("#productModal").modal("show");
+    //     console.log(response);
+    //     vm.status.loadingItem = "";
+    //   });
+    // },
+    // addToCart(id, qty = 1) {
+    //   const vm = this;
+    //   const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+    //   vm.status.loadingItem = id;
+    //   const cart = {
+    //     product_id: id,
+    //     qty
+    //   };
+    //   this.$http.post(url, { data: cart }).then(response => {
+    //     console.log(response);
+    //     vm.status.loadingItem = "";
+    //     vm.getCart();
+    //     $("#productModal").modal("hide");
+    //   });
+    // },
     getCart() {
       const vm = this;
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;

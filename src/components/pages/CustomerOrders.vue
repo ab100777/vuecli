@@ -1,160 +1,225 @@
 <template>
   <div>
     <loading :active.sync="isLoading"></loading>
-    <div class="row mt-4">
-      <div class="col-md-4 mb-4" v-for="item in products" :key="item.id">
-        <div class="card border-0 shadow-sm">
-          <div
-            style="height: 150px; background-size: cover; background-position: center"
-            :style="{backgroundImage:`url(${item.imageUrl})`}"
-          ></div>
-          <div class="card-body">
-            <span class="badge badge-secondary float-right ml-2">{{item.category}}</span>
-            <h5 class="card-title">
-              <a href="#" class="text-dark">{{item.title}}</a>
-            </h5>
-            <p class="card-text">{{item.content}}</p>
-            <div class="d-flex justify-content-between align-items-baseline">
-              <div class="h5" v-if="!item.price">{{item.origin_price}}</div>
-              <div class="h6" v-if="item.price">{{item.origin_price}}</div>
-              <div class="h5" v-if="item.price">{{item.price}}</div>
+    <div class="container">
+      <div class="row">
+        <div class="col-4 mb-5 px-sm-3 px-0">
+          <div class="list-group" style="font-weight: bolder;font-size: 24px;background-color: rgb(43, 42, 65)">
+            <a
+              href="#all"
+              class="list-group-item list-group-item-action text-center text-primary border-0 active"
+              style="background-color: rgb(43, 42, 65)"
+              data-toggle="list"
+            >所有類別</a>
+            <a
+              href="#RPG"
+              class="list-group-item list-group-item-action text-center text-primary border-0"
+              style="background-color: rgb(43, 42, 65)"
+              data-toggle="list"
+              @click.prevent="link='RPG'"
+            >角色扮演</a>
+            <a
+              href="#shooting"
+              class="list-group-item list-group-item-action text-center text-primary border-0"
+              style="background-color: rgb(43, 42, 65)"
+              data-toggle="list"
+            >射擊</a>
+            <a
+              href="#action"
+              class="list-group-item list-group-item-action text-center text-primary border-0"
+              style="background-color: rgb(43, 42, 65)"
+              data-toggle="list"
+            >動作</a>
+            <a
+              href="#adventure"
+              class="list-group-item list-group-item-action text-center text-primary border-0"
+              style="background-color: rgb(43, 42, 65)"
+              data-toggle="list"
+            >冒險</a>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="tab-content">
+            <div class="tab-pane active" id="all" role="tabpanel">
+              <div class="row">
+                <div class="col-12 mb-4" v-for="item in products" :key="item.id">
+                  <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
+                  <div class="row ">
+                    <div class="col-6">
+                      <div class="item-name text-secondary py-2 text-center border-right-0">{{item.title}}</div>
+                    </div>
+                    <div class="col-6">
+                      <div class="item-price text-secondary py-2 text-center">{{item.price | currency}}</div>
+                    </div>
+                  </div>
+                  <div class="row no-gutters">
+                    <div class="col-7">
+                      <button
+                        class="item-btn btn btn-block btn-primary text-info rounded-0 py-3"
+                        @click="addToCart(item.id)"
+                      >加入購物車</button>
+                    </div>
+                    <div class="col-5">
+                      <button
+                        class="item-btn btn btn-block btn-primary text-info rounded-0 py-3"
+                        @click="getProduct(item.id)"
+                      >查看更多</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item" :class="{'disabled':!pagination.has_pre}">
+                    <a
+                      class="page-link"
+                      href="#"
+                      aria-label="Previous"
+                      @click.prevent="getProducts(pagination.current_page - 1)"
+                    >
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li
+                    class="page-item"
+                    v-for="page in pagination.total_pages"
+                    :key="page"
+                    :class="{'active':pagination.current_page===page}"
+                  >
+                    <a class="page-link" href="#" @click.prevent="getProducts(page)">{{page}}</a>
+                  </li>
+                  <li class="page-item" :class="{'disabled':!pagination.has_next}">
+                    <a
+                      class="page-link"
+                      href="#"
+                      aria-label="Next"
+                      @click.prevent="getProducts(pagination.current_page + 1)"
+                    >
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class="tab-pane" id="RPG" role="tabpanel">
+              <div class="row" v-for="item in products" :key="item.id">
+                <div class="col-12 mb-4" v-if="item.category=='角色扮演'">
+                  <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="item-name text-secondary py-2 text-center">{{item.title}}</div>
+                    </div>
+                    <div class="col-6">
+                      <div class="item-price text-secondary py-2 text-center">{{item.price | currency}}</div>
+                    </div>
+                  </div>
+                  <div class="row no-gutters">
+                    <div class="col-7">
+                      <button
+                        class="item-btn btn btn-block btn-primary text-info rounded-0 py-3"
+                        @click="addToCart(item.id)"
+                      >加入購物車</button>
+                    </div>
+                    <div class="col-5">
+                      <button
+                        class="item-btn btn btn-block btn-primary text-info rounded-0 py-3"
+                        @click="getProduct(item.id)"
+                      >查看更多</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="shooting" role="tabpanel">
+              <div class="row" v-for="item in products" :key="item.id">
+                <div class="col-12 mb-4" v-if="item.category=='射擊'">
+                  <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="item-name text-secondary py-2 text-center">{{item.title}}</div>
+                    </div>
+                    <div class="col-6">
+                      <div class="item-price text-secondary py-2 text-center">{{item.price | currency}}</div>
+                    </div>
+                  </div>
+                  <div class="row no-gutters">
+                    <div class="col-7">
+                      <button
+                        class="item-btn btn btn-block btn-primary text-info rounded-0 py-3"
+                        @click="addToCart(item.id)"
+                      >加入購物車</button>
+                    </div>
+                    <div class="col-5">
+                      <button
+                        class="item-btn btn btn-block btn-primary text-info rounded-0 py-3"
+                        @click="getProduct(item.id)"
+                      >查看更多</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="action" role="tabpanel">
+              <div class="row" v-for="item in products" :key="item.id">
+                <div class="col-12 mb-4" v-if="item.category=='動作'">
+                  <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="item-name text-secondary py-2 text-center">{{item.title}}</div>
+                    </div>
+                    <div class="col-6">
+                      <div class="item-price text-secondary py-2 text-center">{{item.price | currency}}</div>
+                    </div>
+                  </div>
+                  <div class="row no-gutters">
+                    <div class="col-7">
+                      <button
+                        class="item-btn btn btn-block btn-primary text-info rounded-0 py-3"
+                        @click="addToCart(item.id)"
+                      >加入購物車</button>
+                    </div>
+                    <div class="col-5">
+                      <button
+                        class="item-btn btn btn-block btn-primary text-info rounded-0 py-3"
+                        @click="getProduct(item.id)"
+                      >查看更多</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="adventure" role="tabpanel">
+              <div class="row" v-for="item in products" :key="item.id">
+                <div class="col-12 mb-4" v-if="item.category=='冒險'">
+                  <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="item-name text-secondary py-2 text-center">{{item.title}}</div>
+                    </div>
+                    <div class="col-6">
+                      <div class="item-price text-secondary py-2 text-center">{{item.price | currency}}</div>
+                    </div>
+                  </div>
+                  <div class="row no-gutters">
+                    <div class="col-7">
+                      <button
+                        class="item-btn btn btn-block btn-primary text-info rounded-0 py-3"
+                        @click="addToCart(item.id)"
+                      >加入購物車</button>
+                    </div>
+                    <div class="col-5">
+                      <button
+                        class="item-btn btn btn-block btn-primary text-info rounded-0 py-3"
+                        @click="getProduct(item.id)"
+                      >查看更多</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="card-footer d-flex">
-            <button type="button" class="btn btn-outline-info btn-sm" @click="getProduct(item.id)">
-              <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-              查看更多
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline-danger btn-sm ml-auto"
-              @click="addToCart(item.id)"
-            >
-              <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-              加到購物車
-            </button>
-          </div>
         </div>
       </div>
-    </div>
-    <div class="my-5 row justify-content-center">
-      <div class="my-5 row justify-content-center">
-        <table class="table">
-          <thead>
-            <th></th>
-            <th>品名</th>
-            <th>數量</th>
-            <th>單價</th>
-          </thead>
-          <tbody v-if="cart.carts">
-            <tr v-for="item in cart.carts" :key="item.id" >
-              <td class="align-middle">
-                <button
-                  type="button"
-                  class="btn btn-outline-danger btn-sm"
-                  @click="removeCartItem(item.id)"
-                >
-                  <i class="far fa-trash-alt"></i>
-                </button>
-              </td>
-              <td class="align-middle">
-                {{item.product.title}}
-                <div class="text-success" v-if="item.coupon">已套用優惠券</div>
-              </td>
-              <td class="align-middle">{{item.qty}}/{{item.product.unit}}</td>
-              <td class="align-middle text-right">{{item.final_total}}</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="3" class="text-right">總計</td>
-              <td class="text-right">{{cart.total}}</td>
-            </tr>
-            <tr v-if="cart.final_total!==cart.total">
-              <td colspan="3" class="text-right text-success">折扣價</td>
-              <td class="text-right text-success">{{cart.final_total}}</td>
-            </tr>
-          </tfoot>
-        </table>
-        <div class="input-group mb-3 input-group-sm">
-          <input type="text" class="form-cintrol" v-model="coupon_code" placeholder="請輸入優惠碼" />
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" @click="addCouponCode">套用優惠碼</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="my-5 row justify-content-center">
-      <form class="col-md-6" @submit.prevent="createOrder">
-        <div class="form-group">
-          <label for="useremail">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            name="email"
-            id="useremail"
-            v-validate="'required|email'"
-            v-model="form.user.email"
-            placeholder="請輸入 Email"
-            required
-          />
-          <span class="text-danger" v-if="errors.has('email')">{{errors.first('email')}}</span>
-        </div>
-
-        <div class="form-group">
-          <label for="username">收件人姓名</label>
-          <input
-            type="text"
-            class="form-control"
-            name="name"
-            id="username"
-            :class="{'is-invalid':errors.has('name')}"
-            v-model="form.user.name"
-            v-validate="'required'"
-            placeholder="輸入姓名"
-          />
-          <span class="text-danger" v-if="errors.has('name')">必須輸入姓名</span>
-        </div>
-
-        <div class="form-group">
-          <label for="usertel">收件人電話</label>
-          <input
-            type="tel"
-            class="form-control"
-            id="usertel"
-            v-model="form.user.tel"
-            placeholder="請輸入電話"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="useraddress">收件人地址</label>
-          <input
-            type="text"
-            class="form-control"
-            name="address"
-            id="useraddress"
-            v-model="form.user.address"
-            placeholder="請輸入地址"
-          />
-          <span class="text-danger">地址欄位不得留空</span>
-        </div>
-
-        <div class="form-group">
-          <label for="comment">留言</label>
-          <textarea
-            name
-            id="comment"
-            class="form-control"
-            cols="30"
-            rows="10"
-            v-model="form.message"
-          ></textarea>
-        </div>
-        <div class="text-right">
-          <button class="btn btn-danger">送出訂單</button>
-        </div>
-      </form>
     </div>
     <!-- Modal -->
     <div
@@ -174,18 +239,28 @@
             </button>
           </div>
           <div class="modal-body">
-            <img :src="product.image" class="img-fluid" alt />
-            <blockquote class="blockquote mt-3">
-              <p class="mb-0">{{product.content}}</p>
-              <footer class="blockquote-footer text-right">{{product.description}}</footer>
-            </blockquote>
-            <div class="d-flex justify-content-between align-items-baseline">
-              <div class="h5" v-if="!product.price">{{product.origin_price}}</div>
-              <div class="h6" v-if="product.price">{{product.origin_price}}</div>
-              <div class="h5" v-if="product.price">{{product.price}}</div>
+            <div class="row">
+              <div class="col-12">
+                <img
+                  :src="product.imageUrl"
+                  class="bg-cover"
+                  style="width: 100%;height: 400px;"
+                  alt
+                />
+              </div>
+              <div class="col-12">
+                <blockquote class="blockquote mt-3">
+                  <p class="mb-0">{{product.content}}</p>
+                </blockquote>
+                <div class="d-flex justify-content-between align-items-baseline">
+                  <div class="h5" v-if="!product.price">{{product.origin_price | currency}}</div>
+                  <div class="h6" v-if="product.price">原價{{product.origin_price | currency}}</div>
+                  <div class="h5" v-if="product.price">特價{{product.price | currency}}</div>
+                </div>
+              </div>
             </div>
             <select name class="form-control mt-3" v-model="product.num">
-              <option :value="num" v-for="num in 10" :key="num">選購 {{num}} {{product.unit}}</option>
+              <option :value="num" v-for="num in 10" :key="num">選購 {{num}}套</option>
             </select>
           </div>
           <div class="modal-footer">
@@ -215,6 +290,7 @@ export default {
     return {
       products: [],
       product: {},
+      pagination: {},
       status: {
         loadingItem: ""
       },
@@ -233,14 +309,15 @@ export default {
     };
   },
   methods: {
-    getProducts() {
+    getProducts(page) {
       const vm = this;
-      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products`;
+      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products?page=${page}`;
       vm.isLoading = true;
       this.$http.get(url).then(response => {
         vm.products = response.data.products;
         console.log(response);
         vm.isLoading = false;
+        vm.pagination = response.data.pagination;
       });
     },
     getProduct(id) {
@@ -278,50 +355,50 @@ export default {
         console.log(response);
         vm.isLoading = false;
       });
-    },
-    removeCartItem(id) {
-      const vm = this;
-      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart/${id}`;
-      vm.isLoading = true;
-      this.$http.delete(url).then(response => {
-        vm.getCart();
-        console.log(response);
-        vm.isLoading = false;
-      });
-    },
-    addCouponCode() {
-      const vm = this;
-      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/coupon`;
-      const coupon = {
-        code: vm.coupon_code
-      };
-      vm.isLoading = true;
-      this.$http.post(url, { data: coupon }).then(response => {
-        vm.getCart();
-        console.log(response);
-        vm.isLoading = false;
-      });
-    },
-    createOrder() {
-      const vm = this;
-      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order`;
-      const order = vm.form;
-      // vm.isLoading = true;
-      this.$validator.validate().then(result => {
-        if (result) {
-          this.$http.post(url, { data: order }).then(response => {
-            vm.getCart();
-            console.log("訂單已建立", response);
-            if (response.data.success) {
-              vm.$router.push(`/customer_checkout/${response.data.orderId}`);
-            }
-            vm.isLoading = false;
-          });
-        } else {
-          console.log("欄位不完整");
-        }
-      });
     }
+    // removeCartItem(id) {
+    //   const vm = this;
+    //   const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart/${id}`;
+    //   vm.isLoading = true;
+    //   this.$http.delete(url).then(response => {
+    //     vm.getCart();
+    //     console.log(response);
+    //     vm.isLoading = false;
+    //   });
+    // },
+    // addCouponCode() {
+    //   const vm = this;
+    //   const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/coupon`;
+    //   const coupon = {
+    //     code: vm.coupon_code
+    //   };
+    //   vm.isLoading = true;
+    //   this.$http.post(url, { data: coupon }).then(response => {
+    //     vm.getCart();
+    //     console.log(response);
+    //     vm.isLoading = false;
+    //   });
+    // },
+    // createOrder() {
+    //   const vm = this;
+    //   const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order`;
+    //   const order = vm.form;
+    //   // vm.isLoading = true;
+    //   this.$validator.validate().then(result => {
+    //     if (result) {
+    //       this.$http.post(url, { data: order }).then(response => {
+    //         vm.getCart();
+    //         console.log("訂單已建立", response);
+    //         if (response.data.success) {
+    //           vm.$router.push(`/customer_checkout/${response.data.orderId}`);
+    //         }
+    //         vm.isLoading = false;
+    //       });
+    //     } else {
+    //       console.log("欄位不完整");
+    //     }
+    //   });
+    // }
   },
   created() {
     this.getProducts();

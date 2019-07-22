@@ -18,11 +18,6 @@ export default new VueRouter({
             redirect:'login'
         },
         {
-            path:'/login',
-            name:'Login',
-            component:Login
-        },
-        {
             path: '/admin',
             name: 'Dashboard',
             component: Dashboard,
@@ -52,6 +47,11 @@ export default new VueRouter({
             name: 'customerboard',
             component: Customerboard,
             children: [
+                {
+                    path: 'login',
+                    name: 'Login',
+                    component: Login
+                },
                 {
                     path: 'customer_order',
                     name: 'CustomerOrders',

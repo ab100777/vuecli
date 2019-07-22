@@ -139,16 +139,6 @@
                       placeholder="請輸入分類"
                     >
                   </div>
-                  <div class="form-group col-md-6">
-                    <label for="price">單位</label>
-                    <input
-                      type="unit"
-                      class="form-control"
-                      id="unit"
-                      v-model="tempProduct.unit"
-                      placeholder="請輸入單位"
-                    >
-                  </div>
                 </div>
 
                 <div class="form-row">
@@ -175,7 +165,7 @@
                 </div>
                 <hr>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label for="description">產品描述</label>
                   <textarea
                     type="text"
@@ -184,7 +174,7 @@
                     v-model="tempProduct.description"
                     placeholder="請輸入產品描述"
                   ></textarea>
-                </div>
+                </div> -->
                 <div class="form-group">
                   <label for="content">說明內容</label>
                   <textarea
@@ -268,10 +258,10 @@ export default {
     };
   },
   methods: {
-    getProducts() {
+    getProducts(page) {
       const api = `${process.env.APIPATH}/api/${
         process.env.CUSTOMPATH
-      }/products`;
+      }/products?page=${page}`;
       const vm = this;
       console.log(process.env.APIPATH, process.env.CUSTOMPATH);
       vm.isLoading = true;
