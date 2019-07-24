@@ -3,7 +3,7 @@
     <loading :active.sync="isLoading"></loading>
     <div class="container">
       <div class="row">
-        <div class="col-4 mb-5 px-sm-3 px-0">
+        <div class="col-sm-4 mb-5 px-sm-3 px-0">
           <div class="list-group" style="font-weight: bolder;font-size: 24px;background-color: rgb(43, 42, 65)">
             <a
               href="#all"
@@ -38,17 +38,17 @@
             >冒險</a>
           </div>
         </div>
-        <div class="col-8">
+        <div class="col-sm-8">
           <div class="tab-content">
             <div class="tab-pane active" id="all" role="tabpanel">
               <div class="row">
                 <div class="col-12 mb-4" v-for="item in products" :key="item.id">
                   <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
                   <div class="row ">
-                    <div class="col-6">
+                    <div class="col-sm-6">
                       <div class="item-name text-secondary py-2 text-center border-right-0">{{item.title}}</div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-sm-6">
                       <div class="item-price text-secondary py-2 text-center">{{item.price | currency}}</div>
                     </div>
                   </div>
@@ -244,7 +244,7 @@
                 <img
                   :src="product.imageUrl"
                   class="bg-cover"
-                  style="width: 100%;height: 400px;"
+                  style="width: 100%;height: 400px"
                   alt
                 />
               </div>
@@ -254,8 +254,8 @@
                 </blockquote>
                 <div class="d-flex justify-content-between align-items-baseline">
                   <div class="h5" v-if="!product.price">{{product.origin_price | currency}}</div>
-                  <div class="h6" v-if="product.price">原價{{product.origin_price | currency}}</div>
-                  <div class="h5" v-if="product.price">特價{{product.price | currency}}</div>
+                  <div class="h6" style="text-decoration:line-through" v-if="product.price">原價{{product.origin_price | currency}}</div>
+                  <div class="h5 text-danger" v-if="product.price">特價{{product.price | currency}}</div>
                 </div>
               </div>
             </div>

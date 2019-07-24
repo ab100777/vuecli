@@ -1,9 +1,9 @@
 <template>
-    <div>
-            <div class="my-5 row justify-content-center">
-      <div class="my-5 row justify-content-center">
+  <div>
+    <div class="my-5 row justify-content-center">
+      <div class="my-5 row justify-content-center negative-margin">
         <table class="table text-info bg-warning mb-0">
-          <thead >
+          <thead>
             <th></th>
             <th>品名</th>
             <th>數量</th>
@@ -25,24 +25,28 @@
                 <div class="text-success" v-if="item.coupon">已套用優惠券</div>
               </td>
               <td class="align-middle">{{item.qty}}套</td>
-              <td class="align-middle text-right">{{item.final_total}}</td>
+              <td class="align-middle text-right">{{item.final_total | currency}}</td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
               <td colspan="3" class="text-right">總計</td>
-              <td class="text-right">{{cart.total}}</td>
+              <td class="text-right">{{cart.total | currency}}</td>
             </tr>
             <tr v-if="cart.final_total!==cart.total">
               <td colspan="3" class="text-right text-success">折扣價</td>
-              <td class="text-right text-success">{{cart.final_total}}</td>
+              <td class="text-right text-success">{{cart.final_total | currency}}</td>
             </tr>
           </tfoot>
         </table>
         <div class="input-group pb-3 input-group-sm bg-warning">
           <input type="text" class="form-cintrol ml-3" v-model="coupon_code" placeholder="請輸入優惠碼" />
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary text-info" type="button" @click="addCouponCode">套用優惠碼</button>
+            <button
+              class="btn btn-outline-secondary text-info"
+              type="button"
+              @click="addCouponCode"
+            >套用優惠碼</button>
           </div>
         </div>
       </div>
@@ -58,7 +62,7 @@
             id="useremail"
             v-validate="'required|email'"
             v-model="form.user.email"
-            placeholder="請輸入 Email"
+            placeholder="請輸入電子信箱"
             required
           />
           <span class="text-danger" v-if="errors.has('email')">{{errors.first('email')}}</span>
@@ -125,7 +129,7 @@
         </div>
       </form>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>

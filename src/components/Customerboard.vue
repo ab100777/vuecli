@@ -4,7 +4,7 @@
     <Alert></Alert>
     <div class="container-fluid" style="background-color:rgb(43, 42, 65)">
       <div class="row">
-        <main role="main" class="container">
+        <main role="main" class="container" style="padding-top:40px">
           <router-view></router-view>
         </main>
       </div>

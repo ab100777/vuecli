@@ -48,15 +48,20 @@ export default new VueRouter({
             component: Customerboard,
             children: [
                 {
+                    path: '',
+                    name: 'CustomerOrders',
+                    component: CustomerOrders,
+                },
+                {
                     path: 'login',
                     name: 'Login',
                     component: Login
                 },
-                {
-                    path: 'customer_order',
-                    name: 'CustomerOrders',
-                    component: CustomerOrders,
-                },
+                // {
+                //     path: 'customer_order',
+                //     name: 'CustomerOrders',
+                //     component: CustomerOrders,
+                // },
                 {
                     path: 'customer_checkout/:orderId',
                     name: 'CustomerCheckout',
