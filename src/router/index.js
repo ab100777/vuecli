@@ -9,19 +9,20 @@ import Orders from '@/components/pages/Orders'
 import CustomerOrders from '@/components/pages/CustomerOrders'
 import CustomerCheckout from '@/components/pages/CustomerCheckout'
 import Cart from '@/components/pages/Cart'
+import Commodity from '@/components/pages/Commodity'
 Vue.use(VueRouter);
 
 export default new VueRouter({
     routes: [
         {
-            path:'*',
-            redirect:'login'
+            path: '*',
+            redirect: 'login'
         },
         {
             path: '/admin',
             name: 'Dashboard',
             component: Dashboard,
-            children:[
+            children: [
                 {
                     path: 'products',
                     name: 'Products',
@@ -71,6 +72,11 @@ export default new VueRouter({
                     path: 'cart',
                     name: 'Cart',
                     component: Cart,
+                },
+                {
+                    path: 'commodity/:id',
+                    name: 'Commodity',
+                    component: Commodity,
                 }
             ],
         }

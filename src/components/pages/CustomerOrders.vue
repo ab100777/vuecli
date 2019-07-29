@@ -4,7 +4,10 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-4 mb-5 px-sm-3 px-0">
-          <div class="list-group" style="font-weight: bolder;font-size: 24px;background-color: rgb(43, 42, 65)">
+          <div
+            class="list-group"
+            style="font-weight: bolder;font-size: 24px;background-color: rgb(43, 42, 65)"
+          >
             <a
               href="#all"
               class="list-group-item list-group-item-action text-center text-primary border-0 active"
@@ -44,12 +47,16 @@
               <div class="row">
                 <div class="col-12 mb-4" v-for="item in products" :key="item.id">
                   <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
-                  <div class="row ">
+                  <div class="row">
                     <div class="col-sm-6">
-                      <div class="item-name text-secondary py-2 text-center border-right-0">{{item.title}}</div>
+                      <div
+                        class="item-name text-secondary py-2 text-center border-right-0"
+                      >{{item.title}}</div>
                     </div>
                     <div class="col-sm-6">
-                      <div class="item-price text-secondary py-2 text-center">{{item.price | currency}}</div>
+                      <div
+                        class="item-price text-secondary py-2 text-center"
+                      >{{item.price | currency}}</div>
                     </div>
                   </div>
                   <div class="row no-gutters">
@@ -60,6 +67,12 @@
                       >加入購物車</button>
                     </div>
                     <div class="col-5">
+                      <!-- <router-link class="nav-link" to="/Commodity/{products.id}">
+                        <button
+                          class="item-btn btn btn-block btn-primary text-info rounded-0 py-3"
+                          @click="getProduct(item.id)"
+                        >查看更多</button>
+                      </router-link>-->
                       <button
                         class="item-btn btn btn-block btn-primary text-info rounded-0 py-3"
                         @click="getProduct(item.id)"
@@ -110,7 +123,9 @@
                       <div class="item-name text-secondary py-2 text-center">{{item.title}}</div>
                     </div>
                     <div class="col-6">
-                      <div class="item-price text-secondary py-2 text-center">{{item.price | currency}}</div>
+                      <div
+                        class="item-price text-secondary py-2 text-center"
+                      >{{item.price | currency}}</div>
                     </div>
                   </div>
                   <div class="row no-gutters">
@@ -139,7 +154,9 @@
                       <div class="item-name text-secondary py-2 text-center">{{item.title}}</div>
                     </div>
                     <div class="col-6">
-                      <div class="item-price text-secondary py-2 text-center">{{item.price | currency}}</div>
+                      <div
+                        class="item-price text-secondary py-2 text-center"
+                      >{{item.price | currency}}</div>
                     </div>
                   </div>
                   <div class="row no-gutters">
@@ -168,7 +185,9 @@
                       <div class="item-name text-secondary py-2 text-center">{{item.title}}</div>
                     </div>
                     <div class="col-6">
-                      <div class="item-price text-secondary py-2 text-center">{{item.price | currency}}</div>
+                      <div
+                        class="item-price text-secondary py-2 text-center"
+                      >{{item.price | currency}}</div>
                     </div>
                   </div>
                   <div class="row no-gutters">
@@ -197,7 +216,9 @@
                       <div class="item-name text-secondary py-2 text-center">{{item.title}}</div>
                     </div>
                     <div class="col-6">
-                      <div class="item-price text-secondary py-2 text-center">{{item.price | currency}}</div>
+                      <div
+                        class="item-price text-secondary py-2 text-center"
+                      >{{item.price | currency}}</div>
                     </div>
                   </div>
                   <div class="row no-gutters">
@@ -241,12 +262,7 @@
           <div class="modal-body">
             <div class="row">
               <div class="col-12">
-                <img
-                  :src="product.imageUrl"
-                  class="bg-cover"
-                  style="width: 100%;height: 400px"
-                  alt
-                />
+                <img :src="product.imageUrl" class="bg-cover" style="width: 100%;height: 400px" alt />
               </div>
               <div class="col-12">
                 <blockquote class="blockquote mt-3">
@@ -254,7 +270,11 @@
                 </blockquote>
                 <div class="d-flex justify-content-between align-items-baseline">
                   <div class="h5" v-if="!product.price">{{product.origin_price | currency}}</div>
-                  <div class="h6" style="text-decoration:line-through" v-if="product.price">原價{{product.origin_price | currency}}</div>
+                  <div
+                    class="h6"
+                    style="text-decoration:line-through"
+                    v-if="product.price"
+                  >原價{{product.origin_price | currency}}</div>
                   <div class="h5 text-danger" v-if="product.price">特價{{product.price | currency}}</div>
                 </div>
               </div>
@@ -321,13 +341,22 @@ export default {
       });
     },
     getProduct(id) {
+      // const vm = this;
+      // const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${id}`;
+      // vm.status.loadingItem = id;
+      // this.$http.get(url).then(response => {
+      //   vm.product = response.data.product;
+      //   $("#productModal").modal("show");
+      //   console.log(response);
+      //   vm.status.loadingItem = "";
+      // });
       const vm = this;
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${id}`;
       vm.status.loadingItem = id;
       this.$http.get(url).then(response => {
         vm.product = response.data.product;
-        $("#productModal").modal("show");
         console.log(response);
+        vm.$router.push(`/commodity/${id}`)
         vm.status.loadingItem = "";
       });
     },

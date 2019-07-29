@@ -1,7 +1,10 @@
 <template>
   <div>
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="padding-top:0">
       <div class="sidebar-sticky">
+                <router-link class="nav-link" to="/">
+          <img src="./img/Logo-Steam.png" alt width="150px" class="navbar-logo" />
+        </router-link>
         <h6
           class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
         >

@@ -1,10 +1,11 @@
 <template>
   <div>
     <loading :active.sync="isLoading"></loading>
-    <div class="text-right mt-4">
-      <button class="btn btn-primary" @click="openModal(true)">建立新產品</button>
+    <div class="mt-4 mr-4 justify-content-between" style="display:flex">
+      <h4 class="text-secondary">產品列表</h4>
+      <button class="btn btn-primary text-info" @click="openModal(true)">建立新產品</button>
     </div>
-    <table class="table mt-4">
+    <table class="table mt-4 text-secondary">
       <thead>
         <tr>
           <th width="120px">分類</th>
@@ -94,7 +95,7 @@
                     id="image"
                     v-model="tempProduct.imageUrl"
                     placeholder="請輸入圖片連結"
-                  >
+                  />
                 </div>
                 <div class="form-group">
                   <label for="customFile">
@@ -107,14 +108,14 @@
                     class="form-control"
                     ref="files"
                     @change="uploadFile"
-                  >
+                  />
                 </div>
                 <img
                   img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
                   class="img-fluid"
                   alt
                   :src="tempProduct.imageUrl"
-                >
+                />
               </div>
               <div class="col-sm-8">
                 <div class="form-group">
@@ -125,7 +126,7 @@
                     id="title"
                     v-model="tempProduct.title"
                     placeholder="請輸入標題"
-                  >
+                  />
                 </div>
 
                 <div class="form-row">
@@ -137,7 +138,7 @@
                       id="category"
                       v-model="tempProduct.category"
                       placeholder="請輸入分類"
-                    >
+                    />
                   </div>
                 </div>
 
@@ -150,7 +151,7 @@
                       id="origin_price"
                       v-model="tempProduct.origin_price"
                       placeholder="請輸入原價"
-                    >
+                    />
                   </div>
                   <div class="form-group col-md-6">
                     <label for="price">售價</label>
@@ -160,10 +161,10 @@
                       id="price"
                       v-model="tempProduct.price"
                       placeholder="請輸入售價"
-                    >
+                    />
                   </div>
                 </div>
-                <hr>
+                <hr />
 
                 <!-- <div class="form-group">
                   <label for="description">產品描述</label>
@@ -174,7 +175,7 @@
                     v-model="tempProduct.description"
                     placeholder="請輸入產品描述"
                   ></textarea>
-                </div> -->
+                </div>-->
                 <div class="form-group">
                   <label for="content">說明內容</label>
                   <textarea
@@ -194,7 +195,7 @@
                       :true-value="1"
                       :false-value="0"
                       id="is_enabled"
-                    >
+                    />
                     <label class="form-check-label" for="is_enabled">是否啟用</label>
                   </div>
                 </div>
@@ -259,9 +260,7 @@ export default {
   },
   methods: {
     getProducts(page) {
-      const api = `${process.env.APIPATH}/api/${
-        process.env.CUSTOMPATH
-      }/products?page=${page}`;
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products?page=${page}`;
       const vm = this;
       console.log(process.env.APIPATH, process.env.CUSTOMPATH);
       vm.isLoading = true;
@@ -283,15 +282,11 @@ export default {
       $("#productModal").modal("show");
     },
     updateProduct(page = 1) {
-      let api = `${process.env.APIPATH}/api/${
-        process.env.CUSTOMPATH
-      }/admin/product?page=${page}`;
+      let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product?page=${page}`;
       let httpMethod = "post";
       const vm = this;
       if (!vm.isNew) {
-        api = `${process.env.APIPATH}/api/${
-          process.env.CUSTOMPATH
-        }/admin/product/${vm.tempProduct.id}`;
+        api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
         httpMethod = "put";
       }
       console.log(process.env.APIPATH, process.env.CUSTOMPATH);
@@ -309,12 +304,10 @@ export default {
     },
     openDelModal(item) {
       this.tempProduct = Object.assign({}, item);
-      $("#delProductModal").modal("show"); 
+      $("#delProductModal").modal("show");
     },
     removeProduct(id) {
-      const api = `${process.env.APIPATH}/api/${
-        process.env.CUSTOMPATH
-      }/admin/product/${id}`;
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${id}`;
       const vm = this;
       console.log(process.env.APIPATH, process.env.CUSTOMPATH);
       vm.isLoading = true;
@@ -331,9 +324,7 @@ export default {
       const vm = this;
       const formData = new FormData();
       formData.append("file-to-upload", uploadFile);
-      const url = `${process.env.APIPATH}/api/${
-        process.env.CUSTOMPATH
-      }/admin/upload`;
+      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`;
       vm.status.fileUploading = true;
       this.$http
         .post(url, formData, {

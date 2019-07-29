@@ -2,13 +2,15 @@
   <div>
     <Navbar></Navbar>
     <Alert></Alert>
-    <div class="container-fluid" style="background-color:rgb(43, 42, 65)">
+    <!-- <div class="container-fluid" style="background-color:rgb(43, 42, 65)">
       <div class="row">
-        <main role="main" class="container" style="padding-top:40px">
-          <router-view></router-view>
-        </main>
+        <main role="main" class="container" style="padding-top:40px"> -->
+          <div style="background-color:rgb(43, 42, 65);padding-top:40px">
+            <router-view></router-view>
+          </div>
+        <!-- </main>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

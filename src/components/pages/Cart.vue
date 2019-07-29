@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"></loading>
     <div class="my-5 row justify-content-center">
       <div class="my-5 row justify-content-center negative-margin">
         <table class="table text-info bg-warning mb-0">

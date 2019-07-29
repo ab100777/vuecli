@@ -1,14 +1,15 @@
 <template>
   <div>
     <!-- <loading :active.sync="isLoading"></loading> -->
-    <div class="text-right mt-4">
-      <button class="btn btn-primary" @click="openModal(true)">新增優惠券</button>
+    <div class="mt-4 mr-4 justify-content-between" style="display:flex">
+      <h4 class="text-secondary">優惠券</h4>
+      <button class="btn btn-primary text-info" @click="openModal(true)">新增優惠券</button>
     </div>
-    <table class="table mt-4">
+    <table class="table mt-4 text-secondary">
       <thead>
         <tr>
           <th width="120px">優惠券</th>
-          <th width="120px">券號</th>
+          <th>券號</th>
           <th width="120px">折扣</th>
           <th width="120px">到期日</th>
           <th width="100px">是否啟用</th>
