@@ -1,8 +1,11 @@
 <template>
   <div>
-    <!-- <div v-for="item in products" :key="item.id">
-      <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
-    </div> -->
+    <div v-for="item in product" :key="item.id">
+      <!-- <div class="bg-cover item-img" :style="{backgroundImage:`url(${product.imageUrl})`}"></div> -->
+      <div class="text-info">132
+        {{product.title}}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -16,17 +19,20 @@ export default {
     };
   },
   methods: {
-    getCommodity() {
+    getCommodity(id) {
       const vm = this;
-      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${id}`;
+      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${vm.id}`;
+      vm.isLoading = true;
       this.$http.get(url).then(response => {
-        // vm.product = response.data.product;
+        vm.product = response.data.product;
         console.log(response);
+        vm.isLoading = false;
       });
     }
   },
   created() {
     this.id = this.$route.params.id;
+    this.getCommodity();
     console.log(this.id);
   }
 };
