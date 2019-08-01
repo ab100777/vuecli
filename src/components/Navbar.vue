@@ -30,7 +30,7 @@
                 <i class="fas fa-shopping-cart"></i>購物車
               </router-link>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <router-link class="nav-link" to="/login">
                 <span data-feather="file-text"></span>
                 登入
@@ -46,7 +46,7 @@
                 <span data-feather="file-text"></span>
                 後台系統
               </router-link>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>

@@ -1,6 +1,6 @@
 <template>
-  <div class="my-5 row justify-content-center">
-    <form class="col-md-6" @submit.prevent="payOrder">
+  <div class="my-5 row justify-content-center negative-margin">
+    <form class="col-md-6" style="padding-bottom:50px" @submit.prevent="payOrder">
       <table class="table text-info">
         <thead>
           <th>品名</th>

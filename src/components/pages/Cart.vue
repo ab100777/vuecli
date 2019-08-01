@@ -1,7 +1,10 @@
 <template>
   <div>
     <loading :active.sync="isLoading"></loading>
-    <div class="my-5 row justify-content-center">
+    <div
+      class="my-5 row justify-content-center negative-margin"
+      style="margin-left: 0px;margin-right: 0px;"
+    >
       <div class="my-5 row justify-content-center negative-margin">
         <table class="table text-info bg-warning mb-0">
           <thead>
@@ -52,7 +55,10 @@
         </div>
       </div>
     </div>
-    <div class="my-5 row justify-content-center">
+    <div
+      class="my-5 row justify-content-center negative-margin"
+      style="padding-bottom:50px;margin-left: 0px;margin-right: 0px;"
+    >
       <form class="col-md-6 text-info" @submit.prevent="createOrder">
         <div class="form-group">
           <label for="useremail">Email</label>
