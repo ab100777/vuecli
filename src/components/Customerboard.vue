@@ -2,15 +2,12 @@
   <div>
     <Navbar></Navbar>
     <Alert></Alert>
-    <!-- <div class="container-fluid" style="background-color:rgb(43, 42, 65)">
-      <div class="row">
-        <main role="main" class="container" style="padding-top:40px"> -->
           <div style="background-color:rgb(43, 42, 65);padding-top:40px">
             <router-view></router-view>
           </div>
-        <!-- </main>
-      </div>
-    </div> -->
+          <footer style="background-color:rgb(43, 42, 65);" class="pb-4">
+            <div style="display:flex" class="justify-content-center"><img src="./img/logo_steam_footer.png" alt=""></div>
+          </footer>
   </div>
 </template>
 

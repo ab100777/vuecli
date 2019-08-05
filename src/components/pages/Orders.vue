@@ -10,6 +10,7 @@
           <th width="120px">應付金額</th>
           <th width="100px">訂購日期</th>
           <th width="100px">是否付款</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>

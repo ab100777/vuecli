@@ -13,6 +13,7 @@
           <th width="120px">折扣</th>
           <th width="120px">到期日</th>
           <th width="100px">是否啟用</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
