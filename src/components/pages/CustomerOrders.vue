@@ -2,6 +2,7 @@
   <div>
     <loading :active.sync="isLoading"></loading>
     <div class="container">
+      <Swiper></Swiper>
       <div class="row">
         <div class="col-sm-4 mb-5 px-sm-3 px-0">
           <div
@@ -304,6 +305,8 @@
 
 <script>
 import $ from "jquery";
+import Swiper from "./Swiper";
+
 
 export default {
   data() {
@@ -325,8 +328,11 @@ export default {
       },
       cart: {},
       isLoading: false,
-      coupon_code: ""
+      coupon_code: "",
     };
+  },
+    components: {
+      Swiper
   },
   methods: {
     getProducts(page) {
@@ -356,7 +362,7 @@ export default {
       this.$http.get(url).then(response => {
         vm.product = response.data.product;
         console.log(response);
-        vm.$router.push(`/commodity/${id}`)
+        vm.$router.push(`/commodity/${id}`);
         vm.status.loadingItem = "";
       });
     },

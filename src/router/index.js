@@ -58,11 +58,6 @@ export default new VueRouter({
                     name: 'Login',
                     component: Login
                 },
-                // {
-                //     path: 'customer_order',
-                //     name: 'CustomerOrders',
-                //     component: CustomerOrders,
-                // },
                 {
                     path: 'customer_checkout/:orderId',
                     name: 'CustomerCheckout',

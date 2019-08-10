@@ -11,6 +11,7 @@ import VeeValidate from 'vee-validate'
 import zhTWValidate from 'vee-validate/dist/locale/zh_TW'
 
 
+
 import router from './router'
 import './bus'
 import currencyFilter from './filters/currency'
