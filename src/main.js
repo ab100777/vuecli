@@ -9,6 +9,7 @@ import 'vue-loading-overlay/dist/vue-loading.css'
 import 'bootstrap'
 import VeeValidate from 'vee-validate'
 import zhTWValidate from 'vee-validate/dist/locale/zh_TW'
+import 'swiper/dist/css/swiper.min.css'
 
 
 

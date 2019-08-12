@@ -2,7 +2,7 @@
   <div>
     <loading :active.sync="isLoading"></loading>
     <div class="container">
-      <Swiper></Swiper>
+      <SwiperSlider></SwiperSlider>
       <div class="row">
         <div class="col-sm-4 mb-5 px-sm-3 px-0">
           <div
@@ -305,7 +305,7 @@
 
 <script>
 import $ from "jquery";
-import Swiper from "./Swiper";
+import SwiperSlider from "Swiper";
 
 
 export default {
@@ -332,7 +332,7 @@ export default {
     };
   },
     components: {
-      Swiper
+      SwiperSlider
   },
   methods: {
     getProducts(page) {
