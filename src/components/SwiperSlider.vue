@@ -1,22 +1,33 @@
 <template>
   <div class="swiper-container">
     <div class="swiper-wrapper">
-      <div class="swiper-slide text-info">Slide 1</div>
-      <div class="swiper-slide text-info">Slide 2</div>
-      <div class="swiper-slide text-info">Slide 3</div>
+      <div class="swiper-slide"><img src="./img/0UV4eUX5XQwZCMWIybFtC7uR1ioGXlkNDLG-gQyxvoE.jpg" alt=""></div>
+      <div class="swiper-slide text-info"><img src="./img/NieR-Automata-1024x576.jpg" alt=""></div>
+      <div class="swiper-slide text-info"><img src="./img/7d92c44c72f0baad25f9fc0d8240248d.jpg" alt=""></div>
     </div>
     <!-- 如果需要分页器 -->
     <div class="swiper-pagination"></div>
     <!-- 如果需要导航按钮 -->
-    <!--<div class="swiper-button-prev"></div>-->
-    <!--<div class="swiper-button-next"></div>-->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
     <!-- 如果需要滚动条 -->
-    <!--<div class="swiper-scrollbar"></div>-->
+    <!-- <div class="swiper-scrollbar"></div> -->
   </div>
 </template>
 <script>
+import Swiper from 'Swiper'
+
   export default {
     name: "Slider",
+    data(){
+    return{
+      swiperOption: {//swiper3
+      loop:true,
+      autoplay: 300,
+      speed: 1000,
+      }
+    }
+  },
     mounted(){
       new Swiper ('.swiper-container', {
         loop: true,

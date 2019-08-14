@@ -305,7 +305,7 @@
 
 <script>
 import $ from "jquery";
-import SwiperSlider from "Swiper";
+import SwiperSlider from "../SwiperSlider";
 
 
 export default {
