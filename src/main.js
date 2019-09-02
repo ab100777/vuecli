@@ -9,6 +9,11 @@ import 'vue-loading-overlay/dist/vue-loading.css'
 import 'bootstrap'
 import VeeValidate from 'vee-validate'
 import zhTWValidate from 'vee-validate/dist/locale/zh_TW'
+import 'swiper/dist/css/swiper.min.css'
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 
 
 import router from './router'
@@ -18,6 +23,7 @@ import timeFilter from './filters/time'
 
 Vue.use(VueAxios, axios)
 Vue.use(VeeValidate)
+Vue.use(BootstrapVue)
 VeeValidate.Validator.localize('zh_TW',zhTWValidate)
 
 Vue.config.productionTip = false

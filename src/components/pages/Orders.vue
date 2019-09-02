@@ -1,6 +1,7 @@
 <template>
   <div>
-    <table class="table mt-4">
+    <h4 class="mt-4 text-secondary">訂單列表</h4>
+    <table class="table mt-4 text-secondary">
       <thead>
         <tr>
           <th width="120px">訂購者姓名</th>
@@ -9,6 +10,7 @@
           <th width="120px">應付金額</th>
           <th width="100px">訂購日期</th>
           <th width="100px">是否付款</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>

@@ -1,7 +1,17 @@
 <template>
-  <div class="my-5 row justify-content-center">
-    <form class="col-md-6" @submit.prevent="payOrder">
-      <table class="table">
+<div>
+      <div class="row justify-content-center">
+      <div class="col-2 text-center text-primary checkout-step py-3">
+        <h3>step1</h3>確認訂單
+        <br>填寫資料
+      </div>
+      <div class="col-2 text-center text-info bg-warning checkout-step mx-3 py-3">
+        <h3>step2</h3>確認付款
+      </div>
+    </div>
+  <div class="my-5 row justify-content-center negative-margin">
+    <form class="col-md-6" style="padding-bottom:50px" @submit.prevent="payOrder">
+      <table class="table text-info">
         <thead>
           <th>品名</th>
           <th>數量</th>
@@ -10,19 +20,19 @@
         <tbody>
           <tr v-for="item in order.products" :key="item.id">
             <td class="align-middle">{{ item.product.title }}</td>
-            <td class="align-middle">{{ item.qty }}/{{ item.product.unit }}</td>
-            <td class="align-middle text-right">{{ item.final_total }}</td>
+            <td class="align-middle">{{ item.qty }}套</td>
+            <td class="align-middle text-right">{{ item.final_total | currency}}</td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
             <td colspan="2" class="text-right">總計</td>
-            <td class="text-right">{{ order.total }}</td>
+            <td class="text-right">{{ order.total | currency}}</td>
           </tr>
         </tfoot>
       </table>
 
-      <table class="table">
+      <table class="table text-info">
         <tbody>
           <tr>
             <th width="100">Email</th>
@@ -54,6 +64,7 @@
       </div>
     </form>
   </div>
+</div>
 </template>
 
 <script>

@@ -1,32 +1,32 @@
 <template>
   <div>
     <form class="form-signin" @submit.prevent="signin">
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-      <label for="inputEmail" class="sr-only">Email address</label>
+      <h1 class="h3 mb-3 font-weight-normal text-info">登入</h1>
+      <label for="inputEmail" class="sr-only">電子信箱</label>
       <input
         type="email"
         id="inputEmail"
         class="form-control"
-        placeholder="Email address"
+        placeholder="電子信箱"
         required
         autofocus
         v-model="user.username"
       >
-      <label for="inputPassword" class="sr-only">Password</label>
+      <label for="inputPassword" class="sr-only">密碼</label>
       <input
         type="password"
         id="inputPassword"
         class="form-control"
-        placeholder="Password"
+        placeholder="密碼"
         required
         v-model="user.password"
       >
-      <div class="checkbox mb-3">
+      <div class="checkbox text-info mb-3">
         <label>
-          <input type="checkbox" value="remember-me"> Remember me
+          <input type="checkbox" value="remember-me">記住我
         </label>
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      <button class="btn btn-lg btn-primary btn-block text-info" type="submit">登入</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
     </form>
   </div>
