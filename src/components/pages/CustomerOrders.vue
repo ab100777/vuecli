@@ -3,8 +3,12 @@
     <loading :active.sync="isLoading"></loading>
     <div class="container">
       <SwiperSlider></SwiperSlider>
+<<<<<<< HEAD
       <b-alert v-model="showDismissibleAlert" class="cart-alert" variant="success" dismissible>成功加入購物車</b-alert>
       <div class="row mt-5">
+=======
+      <div class="row">
+>>>>>>> 9b239c35e5e1a63dd7ff7a79b707faf6dcc34bae
         <div class="col-sm-4 mb-5 px-sm-3 px-0">
           <div
             class="list-group"
@@ -307,6 +311,10 @@
 <script>
 import $ from "jquery";
 import SwiperSlider from "../SwiperSlider";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9b239c35e5e1a63dd7ff7a79b707faf6dcc34bae
 
 export default {
   data() {
@@ -329,11 +337,18 @@ export default {
       cart: {},
       isLoading: false,
       coupon_code: "",
+<<<<<<< HEAD
       showDismissibleAlert: false
     };
   },
   components: {
     SwiperSlider
+=======
+    };
+  },
+    components: {
+      SwiperSlider
+>>>>>>> 9b239c35e5e1a63dd7ff7a79b707faf6dcc34bae
   },
   methods: {
     getProducts(page) {
