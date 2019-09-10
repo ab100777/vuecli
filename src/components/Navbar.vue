@@ -27,26 +27,9 @@
             <li class="nav-item">
               <router-link class="nav-link" to="/cart">
                 <span data-feather="file-text"></span>
-                <i class="fas fa-shopping-cart"></i>購物車
+                <i class="fas fa-shopping-cart"></i>購物車(1)
               </router-link>
             </li>
-            <!-- <li class="nav-item">
-              <router-link class="nav-link" to="/login">
-                <span data-feather="file-text"></span>
-                登入
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/login">
-                <span data-feather="file-text" @click="signout">登出</span>
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/admin/products">
-                <span data-feather="file-text"></span>
-                後台系統
-              </router-link>
-            </li> -->
           </ul>
         </div>
       </div>

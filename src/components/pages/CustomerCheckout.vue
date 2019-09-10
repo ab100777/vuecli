@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
 <div>
       <div class="row justify-content-center">
       <div class="col-2 text-center text-primary checkout-step py-3">
@@ -10,8 +9,6 @@
         <h3>step2</h3>確認付款
       </div>
     </div>
-=======
->>>>>>> 9b239c35e5e1a63dd7ff7a79b707faf6dcc34bae
   <div class="my-5 row justify-content-center negative-margin">
     <form class="col-md-6" style="padding-bottom:50px" @submit.prevent="payOrder">
       <table class="table text-info">

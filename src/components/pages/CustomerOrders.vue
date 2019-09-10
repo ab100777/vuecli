@@ -3,12 +3,14 @@
     <loading :active.sync="isLoading"></loading>
     <div class="container">
       <SwiperSlider></SwiperSlider>
-<<<<<<< HEAD
-      <b-alert v-model="showDismissibleAlert" class="cart-alert" variant="success" dismissible>成功加入購物車</b-alert>
+      <b-alert
+        v-model="showDismissibleAlert"
+        class="cart-alert"
+        variant="success"
+        dismissible
+      >成功加入購物車</b-alert>
+      <div class="alert alert-primary" role="alert" v-if="searchTitle.lengh = 0">A simple primary alert—check it out!</div>
       <div class="row mt-5">
-=======
-      <div class="row">
->>>>>>> 9b239c35e5e1a63dd7ff7a79b707faf6dcc34bae
         <div class="col-sm-4 mb-5 px-sm-3 px-0">
           <div
             class="list-group"
@@ -49,9 +51,12 @@
         </div>
         <div class="col-sm-8">
           <div class="tab-content">
+            <div>
+              <span class="text-secondary" style="font-size:20px;font-weight:bold">搜尋</span><input type="text" name id class="bg-primary border-0" style="" v-model.trim="search" />
+            </div>
             <div class="tab-pane active" id="all" role="tabpanel">
               <div class="row">
-                <div class="col-12 mb-4" v-for="item in products" :key="item.id">
+                <div class="col-12 mb-4" v-for="item in searchTitle" :key="item.id">
                   <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
                   <div class="row">
                     <div class="col-sm-6">
@@ -73,12 +78,6 @@
                       >加入購物車</button>
                     </div>
                     <div class="col-5">
-                      <!-- <router-link class="nav-link" to="/Commodity/{products.id}">
-                        <button
-                          class="item-btn btn btn-block btn-primary text-info rounded-0 py-3"
-                          @click="getProduct(item.id)"
-                        >查看更多</button>
-                      </router-link>-->
                       <button
                         class="item-btn btn btn-block btn-primary text-info rounded-0 py-3"
                         @click="getProduct(item.id)"
@@ -121,7 +120,7 @@
               </nav>
             </div>
             <div class="tab-pane" id="RPG" role="tabpanel">
-              <div class="row" v-for="item in products" :key="item.id">
+              <div class="row" v-for="item in searchTitle" :key="item.id">
                 <div class="col-12 mb-4" v-if="item.category=='角色扮演'">
                   <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
                   <div class="row">
@@ -152,7 +151,7 @@
               </div>
             </div>
             <div class="tab-pane" id="shooting" role="tabpanel">
-              <div class="row" v-for="item in products" :key="item.id">
+              <div class="row" v-for="item in searchTitle" :key="item.id">
                 <div class="col-12 mb-4" v-if="item.category=='射擊'">
                   <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
                   <div class="row">
@@ -183,7 +182,7 @@
               </div>
             </div>
             <div class="tab-pane" id="action" role="tabpanel">
-              <div class="row" v-for="item in products" :key="item.id">
+              <div class="row" v-for="item in searchTitle" :key="item.id">
                 <div class="col-12 mb-4" v-if="item.category=='動作'">
                   <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
                   <div class="row">
@@ -214,7 +213,7 @@
               </div>
             </div>
             <div class="tab-pane" id="adventure" role="tabpanel">
-              <div class="row" v-for="item in products" :key="item.id">
+              <div class="row" v-for="item in searchTitle" :key="item.id">
                 <div class="col-12 mb-4" v-if="item.category=='冒險'">
                   <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
                   <div class="row">
@@ -311,10 +310,6 @@
 <script>
 import $ from "jquery";
 import SwiperSlider from "../SwiperSlider";
-<<<<<<< HEAD
-=======
-
->>>>>>> 9b239c35e5e1a63dd7ff7a79b707faf6dcc34bae
 
 export default {
   data() {
@@ -337,18 +332,12 @@ export default {
       cart: {},
       isLoading: false,
       coupon_code: "",
-<<<<<<< HEAD
-      showDismissibleAlert: false
+      showDismissibleAlert: false,
+      search: "",
     };
   },
   components: {
     SwiperSlider
-=======
-    };
-  },
-    components: {
-      SwiperSlider
->>>>>>> 9b239c35e5e1a63dd7ff7a79b707faf6dcc34bae
   },
   methods: {
     getProducts(page) {
@@ -363,15 +352,6 @@ export default {
       });
     },
     getProduct(id) {
-      // const vm = this;
-      // const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${id}`;
-      // vm.status.loadingItem = id;
-      // this.$http.get(url).then(response => {
-      //   vm.product = response.data.product;
-      //   $("#productModal").modal("show");
-      //   console.log(response);
-      //   vm.status.loadingItem = "";
-      // });
       const vm = this;
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${id}`;
       vm.status.loadingItem = id;
@@ -411,49 +391,30 @@ export default {
         vm.isLoading = false;
       });
     }
-    // removeCartItem(id) {
-    //   const vm = this;
-    //   const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart/${id}`;
-    //   vm.isLoading = true;
-    //   this.$http.delete(url).then(response => {
-    //     vm.getCart();
-    //     console.log(response);
-    //     vm.isLoading = false;
-    //   });
-    // },
-    // addCouponCode() {
-    //   const vm = this;
-    //   const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/coupon`;
-    //   const coupon = {
-    //     code: vm.coupon_code
-    //   };
-    //   vm.isLoading = true;
-    //   this.$http.post(url, { data: coupon }).then(response => {
-    //     vm.getCart();
-    //     console.log(response);
-    //     vm.isLoading = false;
-    //   });
-    // },
-    // createOrder() {
-    //   const vm = this;
-    //   const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order`;
-    //   const order = vm.form;
-    //   // vm.isLoading = true;
-    //   this.$validator.validate().then(result => {
-    //     if (result) {
-    //       this.$http.post(url, { data: order }).then(response => {
-    //         vm.getCart();
-    //         console.log("訂單已建立", response);
-    //         if (response.data.success) {
-    //           vm.$router.push(`/customer_checkout/${response.data.orderId}`);
-    //         }
-    //         vm.isLoading = false;
-    //       });
-    //     } else {
-    //       console.log("欄位不完整");
-    //     }
-    //   });
+    // searchTitle() {
+    //   if (this.search) {
+    //     this.searchData = this.products.filter(item => {
+    //       return (
+    //         item.title.toLowerCase().indexOf(this.search.toLowerCase()) != -1
+    //       );
+    //     });
+    //   } else {
+    //     return this.products;
+    //   }
     // }
+  },
+  computed: {
+    searchTitle() {
+      if (this.search) {
+        return this.products.filter(item => {
+          return (
+            item.title.toLowerCase().indexOf(this.search.toLowerCase()) != -1
+          );
+        });
+      } else {
+        return this.products;
+      }
+    }
   },
   created() {
     this.getProducts();
