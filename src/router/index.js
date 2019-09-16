@@ -10,6 +10,7 @@ import CustomerOrders from '@/components/pages/CustomerOrders'
 import CustomerCheckout from '@/components/pages/CustomerCheckout'
 import Cart from '@/components/pages/Cart'
 import Commodity from '@/components/pages/Commodity'
+import Home from '@/components/pages/Home'
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -50,6 +51,11 @@ export default new VueRouter({
             children: [
                 {
                     path: '',
+                    name: 'Home',
+                    component: Home,
+                },
+                {
+                    path: 'customerOrders',
                     name: 'CustomerOrders',
                     component: CustomerOrders,
                 },

@@ -1,11 +1,11 @@
 <template>
 <div>
       <div class="row justify-content-center">
-      <div class="col-2 text-center text-primary checkout-step py-3">
+      <div class="col-sm-2 text-center text-primary checkout-step py-3">
         <h3>step1</h3>確認訂單
         <br>填寫資料
       </div>
-      <div class="col-2 text-center text-info bg-warning checkout-step mx-3 py-3">
+      <div class="col-sm-2 text-center text-info bg-warning checkout-step mx-3 py-3">
         <h3>step2</h3>確認付款
       </div>
     </div>
@@ -54,7 +54,7 @@
             <th>付款狀態</th>
             <td>
               <span v-if="!order.is_paid">尚未付款</span>
-              <span v-else class="text-success">付款完成</span>
+              <span v-else class="text-success" >付款完成</span>
             </td>
           </tr>
         </tbody>

@@ -1,12 +1,12 @@
 <template>
   <div>
     <loading :active.sync="isLoading"></loading>
-    <div class="row justify-content-center">
-      <div class="col-2 text-center text-info bg-warning checkout-step py-3">
+    <div class="row justify-content-center negative-margin">
+      <div class="col-sm-2 text-center text-info bg-warning checkout-step py-3">
         <h3>step1</h3>確認訂單
         <br>填寫資料
       </div>
-      <div class="col-2 text-center text-primary checkout-step mx-3 py-3">
+      <div class="col-sm-2 text-center text-primary checkout-step mx-3 py-3">
         <h3>step2</h3>確認付款
       </div>
     </div>
@@ -61,7 +61,9 @@
               @click="addCouponCode"
             >套用優惠碼</button>
           </div>
+          
         </div>
+        <div class="text-info coupon-info">每日限量優惠券：coupon</div>
       </div>
     </div>
     <div

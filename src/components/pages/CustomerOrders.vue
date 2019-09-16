@@ -2,14 +2,12 @@
   <div>
     <loading :active.sync="isLoading"></loading>
     <div class="container">
-      <SwiperSlider></SwiperSlider>
       <b-alert
         v-model="showDismissibleAlert"
         class="cart-alert"
         variant="success"
         dismissible
       >成功加入購物車</b-alert>
-      <div class="alert alert-primary" role="alert" v-if="searchTitle.lengh = 0">A simple primary alert—check it out!</div>
       <div class="row mt-5">
         <div class="col-sm-4 mb-5 px-sm-3 px-0">
           <div
@@ -51,8 +49,12 @@
         </div>
         <div class="col-sm-8">
           <div class="tab-content">
-            <div>
-              <span class="text-secondary" style="font-size:20px;font-weight:bold">搜尋</span><input type="text" name id class="bg-primary border-0" style="" v-model.trim="search" />
+            <div class="search-input mb-3">
+              <span class="text-secondary">搜尋</span>
+              <input type="text" name id class="bg-primary border-0" style v-model.trim="search" />
+            </div>
+            <div class="text-primary text-center mt-5" v-if="searchTitle.length==0">
+              <h2>抱歉，找不到此產品</h2>
             </div>
             <div class="tab-pane active" id="all" role="tabpanel">
               <div class="row">
@@ -86,7 +88,7 @@
                   </div>
                 </div>
               </div>
-              <nav aria-label="Page navigation example">
+              <nav aria-label="Page navigation example" v-if="searchTitle.length!==0">
                 <ul class="pagination">
                   <li class="page-item" :class="{'disabled':!pagination.has_pre}">
                     <a
@@ -124,10 +126,12 @@
                 <div class="col-12 mb-4" v-if="item.category=='角色扮演'">
                   <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
                   <div class="row">
-                    <div class="col-6">
-                      <div class="item-name text-secondary py-2 text-center">{{item.title}}</div>
+                    <div class="col-sm-6">
+                      <div
+                        class="item-name text-secondary py-2 text-center border-right-0"
+                      >{{item.title}}</div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-sm-6">
                       <div
                         class="item-price text-secondary py-2 text-center"
                       >{{item.price | currency}}</div>
@@ -155,10 +159,12 @@
                 <div class="col-12 mb-4" v-if="item.category=='射擊'">
                   <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
                   <div class="row">
-                    <div class="col-6">
-                      <div class="item-name text-secondary py-2 text-center">{{item.title}}</div>
+                    <div class="col-sm-6">
+                      <div
+                        class="item-name text-secondary py-2 text-center border-right-0"
+                      >{{item.title}}</div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-sm-6">
                       <div
                         class="item-price text-secondary py-2 text-center"
                       >{{item.price | currency}}</div>
@@ -186,10 +192,12 @@
                 <div class="col-12 mb-4" v-if="item.category=='動作'">
                   <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
                   <div class="row">
-                    <div class="col-6">
-                      <div class="item-name text-secondary py-2 text-center">{{item.title}}</div>
+                    <div class="col-sm-6">
+                      <div
+                        class="item-name text-secondary py-2 text-center border-right-0"
+                      >{{item.title}}</div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-sm-6">
                       <div
                         class="item-price text-secondary py-2 text-center"
                       >{{item.price | currency}}</div>
@@ -217,10 +225,12 @@
                 <div class="col-12 mb-4" v-if="item.category=='冒險'">
                   <div class="bg-cover item-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
                   <div class="row">
-                    <div class="col-6">
-                      <div class="item-name text-secondary py-2 text-center">{{item.title}}</div>
+                    <div class="col-sm-6">
+                      <div
+                        class="item-name text-secondary py-2 text-center border-right-0"
+                      >{{item.title}}</div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-sm-6">
                       <div
                         class="item-price text-secondary py-2 text-center"
                       >{{item.price | currency}}</div>
@@ -333,7 +343,7 @@ export default {
       isLoading: false,
       coupon_code: "",
       showDismissibleAlert: false,
-      search: "",
+      search: ""
     };
   },
   components: {
@@ -391,17 +401,6 @@ export default {
         vm.isLoading = false;
       });
     }
-    // searchTitle() {
-    //   if (this.search) {
-    //     this.searchData = this.products.filter(item => {
-    //       return (
-    //         item.title.toLowerCase().indexOf(this.search.toLowerCase()) != -1
-    //       );
-    //     });
-    //   } else {
-    //     return this.products;
-    //   }
-    // }
   },
   computed: {
     searchTitle() {
@@ -414,6 +413,7 @@ export default {
       } else {
         return this.products;
       }
+      console.log(searchTitle.length);
     }
   },
   created() {
